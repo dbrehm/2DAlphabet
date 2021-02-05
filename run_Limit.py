@@ -50,7 +50,7 @@ def runLimit(twoDs,postfitWorkspaceDir,blindData=True,location=''):
     # Make a prefit workspace from the data card
     print 'cd '+projDir
     with header.cd(projDir):
-        t2w_cmd = 'text2workspace.py -b '+card_name+' -o workspace.root' 
+        t2w_cmd = 'text2workspace.py -b '+card_name+' -o workspace.root --X-no-jmax' 
         header.executeCmd(t2w_cmd)
         # header.setSnapshot(os.environ['CMSSW_BASE']+'/src/2DAlphabet/'+postfitWorkspaceDir+'/')
 
@@ -182,7 +182,7 @@ if len(inputConfigs) > 1:
     # Combine the cards 
     print 'cd ' + thistag
     with header.cd(thistag):
-        card_combination_command = 'combineCards.py'
+        card_combination_command = 'combineCards.py --X-no-jmax'
         for i in twoDinstances:
             card_combination_command += ' '+i.name+'/card_'+i.name+'.txt'
         card_combination_command += ' > card_'+thistag+'.txt'

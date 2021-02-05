@@ -30,6 +30,17 @@ def setSnapshot(d=''):
     fr_f = TFile.Open(d+'fitDiagnostics.root')
     fr = fr_f.Get('fit_b')
     myargs = RooArgSet(fr.floatParsFinal())
+    # coeffs_final = fr.floatParsFinal()
+    # coeffIter_final = coeffs_final.createIterator()
+    # coeff_final = coeffIter_final.Next()
+    # while coeff_final:
+    #     #print(coeff_final.GetName())
+    #     if 'generic2' in coeff_final.GetName():
+    #         new_coeff = myargs.find(coeff_final.GetName())
+    #         new_coeff.setVal(16*new_coeff.getValV())
+    #         print("Coeff changed.")
+    #         myargs[coeff_final.GetName()] = new_coeff
+    #     coeff_final = coeffIter_final.Next()
     w.saveSnapshot('initialFit',myargs,True)
     fout = TFile('initialFitWorkspace.root',"recreate")
     fout.WriteTObject(w,'w')
@@ -883,7 +894,7 @@ def makeCan(name, tag, histlist, bkglist=[],totalBkg=None,signals=[],colors=[],t
                         if type(signalNames) == str: this_sig_name = signalNames
                         else: this_sig_name = signalNames[isig]
 
-                        legends[hist_index].AddEntry(sig,this_sig_name,'L')
+                        legends[hist_index].AddEntry(sig,this_sig_name.split('_')[1],'L')
                         print 'Drawing: '+sig.GetName()
                         sig.Draw('hist same')
 

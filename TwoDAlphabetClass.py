@@ -684,7 +684,7 @@ class TwoDAlphabet:
                             if x == 'X': nom.SetXTitle(self.inputConfig['BINNING']['X']['TITLE'])
                             elif x == 'Y': nom.SetXTitle(self.inputConfig['BINNING']['Y']['TITLE'])
 
-                            nom.SetTitle('')#proc + ' - ' + syst + ' uncertainty')
+                            nom.SetTitle(proc + ' - ' + syst + ' uncertainty-'+r)
                             nom.GetXaxis().SetTitleOffset(1.0)
                             nom.GetXaxis().SetTitleSize(0.05)
                             thisCan.SetRightMargin(0.16)
@@ -2335,7 +2335,7 @@ def runMLFit(twoDs,rMin,rMax,systsToSet,skipPlots=False,prerun=False):
     else: blind_option = '--setParameters r=1'
 
     # Run Combine
-    FitDiagnostics_command = 'combine -M FitDiagnostics -d '+card_name+' '+blind_option+' --saveWorkspace --cminDefaultMinimizerStrategy 0 ' + sig_option +verbose 
+    FitDiagnostics_command = 'combine -M FitDiagnostics -d '+card_name+' '+blind_option+' --saveWorkspace --cminDefaultMinimizerStrategy 0 ' + sig_option +verbose#+' --freezeParameters allConstrainedNuisances'  
 
     with header.cd(projDir):
         command_saveout = open('FitDiagnostics_command.txt','w')
